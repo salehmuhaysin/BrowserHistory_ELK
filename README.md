@@ -2,8 +2,8 @@
 Script parse the browser history (Chrome, IE, and Firefox) and push the results to elasticsearch database
 
 
----
-# Usage: 
+===
+### Usage: 
 This script used to push parse and push web history files to elasticsearch database
 change the values for:
 es_link: link to the elasticsearch database
@@ -14,8 +14,8 @@ path: path of the web history file (
 	IE 		-> "WebCacheV01.dat" file
 	firefox -> "places.sqlite"
 
----
-# Output
+===
+### Output
 
 the script parse the webshells and get a json output from three functions:
 extract_chrome_history
