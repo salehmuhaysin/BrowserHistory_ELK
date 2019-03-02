@@ -28,10 +28,16 @@ the script parse the webshells and get a json output from three functions:
 
 the json results has a common fields among all the parser functions
 > @timestamp    : used for the elasticsearch timeline
+
 > browser_name  : the browser name 
+
 > link          : the url
+
 > time          : same as the timestamp, the visit, downloads, etc. time
+
 > type          : visitis or downloads
 
 the result then pushed to elasticsearch database as json
-https://github.com/salehmuhaysin/BrowserHistory_ELK/blob/master/kibana.png?raw=true
+
+### Example from Kibana
+![alt text](https://github.com/salehmuhaysin/BrowserHistory_ELK/blob/master/kibana.png?raw=true)
