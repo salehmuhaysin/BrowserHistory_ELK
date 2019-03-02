@@ -18,8 +18,11 @@ path: path of the web history file (
 ### Output
 
 the script parse the webshells and get a json output from three functions:
+
 extract_chrome_history
+
 extract_webcachev01_dat
+
 extract_firefox_history
 
 the json results has a common fields among all the parser functions
