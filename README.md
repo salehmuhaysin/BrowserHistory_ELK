@@ -18,17 +18,20 @@ path: path of the web history file (
 ### Output
 
 the script parse the webshells and get a json output from three functions:
->
+
 > extract_chrome_history
+
 > extract_webcachev01_dat
+
 > extract_firefox_history
-> 
+
 
 the json results has a common fields among all the parser functions
-@timestamp    : used for the elasticsearch timeline
-browser_name  : the browser name 
-link          : the url
-time          : same as the timestamp, the visit, downloads, etc. time
-type          : visitis or downloads
+> @timestamp    : used for the elasticsearch timeline
+> browser_name  : the browser name 
+> link          : the url
+> time          : same as the timestamp, the visit, downloads, etc. time
+> type          : visitis or downloads
 
 the result then pushed to elasticsearch database as json
+https://github.com/salehmuhaysin/BrowserHistory_ELK/blob/master/kibana.png?raw=true
