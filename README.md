@@ -1,7 +1,8 @@
 # BrowserHistory
 Script parse the browser history (Chrome, IE, and Firefox) 
 
-
+### Usage:
+![alt text](https://github.com/salehmuhaysin/BrowserHistory_ELK/blob/master/BrowserHistory.png?raw=true)
 
 
 # BrowserHistory_ELK
