@@ -119,6 +119,7 @@ def extract_webcachev01_dat(file_path):
 
 # places.sqlite path: C:\Users\<user-name>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile-id>.default\places.sqlite 
 def extract_firefox_history(file_path):
+	#print file_path
 	conn = sqlite3.connect(file_path)
 	c = conn.cursor()
 	his = []
@@ -138,14 +139,15 @@ def extract_firefox_history(file_path):
 
 	# get the origins
 	origins = []
-	for org in c.execute('SELECT * FROM moz_origins'):
-		origin = {}
-		for o in range(0 , len(org)):
-			origin[ columns["origins"][o] ] = org[o]
+	if 'moz_origins' in columns.keys():
+		for org in c.execute('SELECT * FROM moz_origins'):
+			origin = {}
+			for o in range(0 , len(org)):
+				origin[ columns["origins"][o] ] = org[o]
 
-		origins.append(origin)
+			origins.append(origin)
 
-
+	
 	# get all places
 	places = []
 	for place in c.execute('SELECT * FROM moz_places'):
@@ -154,7 +156,6 @@ def extract_firefox_history(file_path):
 			plc[ columns["places"][p] ] = place[p]
 
 		places.append(plc)
-
 
 	# get all annos
 	annos = []
@@ -174,7 +175,6 @@ def extract_firefox_history(file_path):
 
 		annos_attr.append(an)
 
-
 	# get all visits
 	visits = []
 	for visit in c.execute('SELECT * FROM moz_historyvisits'):
@@ -185,7 +185,6 @@ def extract_firefox_history(file_path):
 		visits.append(v)
 
 
-	#print json_beautifier(visits)
 	visit_type = [
 		"TRANSITION_LINK" , 
 		"TRANSITION_TYPED" ,
@@ -193,10 +192,10 @@ def extract_firefox_history(file_path):
 		'TRANSITION_EMBED' ,
 		'TRANSITION_REDIRECT_PERMANENT' ,
 		'TRANSITION_REDIRECT_TEMPORARY' ,
-		'TRANSITION_DOWNLOAD'
+		'TRANSITION_DOWNLOAD',
+		'TRANSITION_FRAMED_LINK'
 	]
 	for visit in visits:
-
 		# add the record type 
 		visit["visit_type"] = visit_type[ visit["visit_type"]-1 ]
 		if visit["visit_type"] == 'TRANSITION_DOWNLOAD':
@@ -234,13 +233,14 @@ def extract_firefox_history(file_path):
 
 				visit['annos'][ len(visit['annos']) ] = visit_anno
 
-
 		# fix the records fields 
 		for k in visit.keys():
 			if k in ["p_last_visit_date" , "visit_date"]:
 				visit[k] = convert_timestamp(visit[k] , browser_name='Firefox', tz='utc') # convert the times 
 			if k in ["p_url_hash"]:
 				visit[k] = str(visit[k])
+		
+
 		if 'annos' in visit.keys():
 			for anno in range( 0 , len( visit['annos'] )):
 				for k in visit['annos'][anno].keys():
@@ -263,6 +263,7 @@ def extract_firefox_history(file_path):
 
 
 	return visits
+
 
 
 # History path: %LocalAppData%\Google\Chrome\User Data\Default\History
